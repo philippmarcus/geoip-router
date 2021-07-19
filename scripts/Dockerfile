@@ -8,7 +8,7 @@ FROM debian
 RUN apt-get update && apt-get upgrade && apt-get -y install iptables strongswan libcharon-extra-plugins wget kmod ipcalc rsyslog
 
 # Install NordVPN certificate
-RUN wget https://downloads.nord-help.com/certificates/root.der -O /etc/ipsec.d/cacerts/NordVPN.der && \
+RUN wget $VPN_CERT_LOCATION -O /etc/ipsec.d/cacerts/NordVPN.der && \
     openssl x509 -inform der -in /etc/ipsec.d/cacerts/NordVPN.der -out /etc/ipsec.d/cacerts/NordVPN.pem
 
 # Copy the ipsec configuration as published by NordVPN but add "mark_out=2" for international
